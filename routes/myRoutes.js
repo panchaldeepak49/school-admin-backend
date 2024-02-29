@@ -23,6 +23,8 @@ const { postAdmission,getAllAdmission,getAllAdmissionWithSearch
 ,getAllAdmissionWithSearchNpagination,deleteStudent,getAdmissionClassX,getAdmissionClassXSearch } = require('../Controllers/admission');
 const { getAllMyAdmission } = require('../Controllers/practice');
 const { postRegister } = require('../Controllers/register')
+const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail } = require('../Controllers/fees')
+
 
 router.route("/school/register").post(postRegister);
 router.route("/school/login").post(postLogin);
@@ -35,6 +37,9 @@ router.route("/school/deleteStudent/:id").delete(deleteStudent);
 //router.route("/school/getAdmissionX").get(getAdmissionClassX);
 router.route("/school/getAdmissionX").get(getAdmissionClassXSearch);
 router.route('/upload').post(upload.single('file'),uploadFile);  //this api is used in frontend action 
-
+router.route("/school/postAllStudentFee").post(postStudentFee);
+router.route("/school/updateStudentFee/:id").put(updateStudentFee);
+router.route('/school/getAllStudentFee').get(getAllStudentFee);
+ router.route('/school/deleteStudentFeeDetail/:id').delete(deleteStudentFeeDetail);
 
 module.exports = router;
