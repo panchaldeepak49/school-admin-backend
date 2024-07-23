@@ -61,12 +61,55 @@ const updateStudentFee = async(req,res)=>{
 }
 }
 ////////////////////////////////////////////////////////////////////getAll fees
+// const getAllStudentFee = async(req,res)=>{
+//     const allStudentFee = await collectionFee.find();
+//     return res.status(200).json({
+//         success :true,
+//         allStudentFee
+//     })
+// }
+///////////////////////////////////////////////////////////////////////
 const getAllStudentFee = async(req,res)=>{
-    const allStudentFee = await collectionFee.find();
-    return res.status(200).json({
-        success :true,
-        allStudentFee
+    try{
+    var limit = 8;
+    if(req.query.limit){
+        limit = req.query.limit;
+    }
+
+    var page = 1;
+    if(req.query.page){
+        page = req.query.page;
+    }
+
+    let search = '';
+    if(req.query.search){
+        search = req.query.search;
+    }
+
+    const allStudentFee = await collectionFee.find({
+        $or : [
+            {name : { $regex:'.*'+ search +'.*', $options:'i' } }
+        ]
     })
+    .limit(limit * 1)
+    .skip((page - 1)*limit)
+    .exec();
+    
+    const count = await collectionFee.find().countDocuments();
+    return res.status(200).json({
+        success : true,
+        allStudentFee,
+        limit : limit,
+        page : page,
+        count : count,
+        totalPages : Math.ceil(count/limit),
+    })
+   }catch(err){
+    return res.status(500).json({
+        success : false,
+        message : err.message
+    })
+   }
 }
 
 //////////////////////////////////////////////////////////////////deleteFeeDetail

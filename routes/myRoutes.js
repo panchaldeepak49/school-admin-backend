@@ -12,8 +12,6 @@ const storage = multer.diskStorage({
   const upload = multer({ storage });
 
 
-
-
 const express = require('express');
 const router = express.Router();
 
@@ -24,6 +22,7 @@ const { postAdmission,getAllAdmission,getAllAdmissionWithSearch
 const { getAllMyAdmission } = require('../Controllers/practice');
 const { postRegister } = require('../Controllers/register')
 const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail } = require('../Controllers/fees')
+const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff } = require('../Controllers/staff')
 
 
 router.route("/school/register").post(postRegister);
@@ -40,6 +39,12 @@ router.route('/upload').post(upload.single('file'),uploadFile);  //this api is u
 router.route("/school/postAllStudentFee").post(postStudentFee);
 router.route("/school/updateStudentFee/:id").put(updateStudentFee);
 router.route('/school/getAllStudentFee').get(getAllStudentFee);
- router.route('/school/deleteStudentFeeDetail/:id').delete(deleteStudentFeeDetail);
+router.route('/school/deleteStudentFeeDetail/:id').delete(deleteStudentFeeDetail);
+
+router.route('/school/postStaff').post(postStaff);
+// router.route("/school/getAllStaff").get(getAllStaff);
+router.route("/school/getAllStaff").get(getAllStaffWithSearch);
+router.route("/school/updateStaff/:id").put(updateStaff);
+router.route('/school/deleteStaffDetail/:id').delete(deleteStaff);
 
 module.exports = router;
