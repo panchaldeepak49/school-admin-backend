@@ -13,7 +13,6 @@ const postStaff = async(req,res)=>{
         })
     }else{
         const newStaff = await collectionStaff.create(req.body)
-        await collectionStaff.create(req.body)
         //console.log(req.body)
         return res.status(200).json({
             success : true,
@@ -122,5 +121,8 @@ const deleteStaff = async(req,res) =>{
     });
   }
  }
+
+ 
+ 
 
 module.exports = { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff }

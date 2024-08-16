@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
 
   const upload = multer({ storage });
 
-
 const express = require('express');
 const router = express.Router();
 
@@ -23,6 +22,7 @@ const { getAllMyAdmission } = require('../Controllers/practice');
 const { postRegister } = require('../Controllers/register')
 const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail } = require('../Controllers/fees')
 const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff } = require('../Controllers/staff')
+const { sendMail } = require('../Controllers/sendMail')
 
 
 router.route("/school/register").post(postRegister);
@@ -46,5 +46,6 @@ router.route('/school/postStaff').post(postStaff);
 router.route("/school/getAllStaff").get(getAllStaffWithSearch);
 router.route("/school/updateStaff/:id").put(updateStaff);
 router.route('/school/deleteStaffDetail/:id').delete(deleteStaff);
+router.route('/school/sendMail').post(sendMail);
 
 module.exports = router;
