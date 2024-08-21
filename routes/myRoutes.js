@@ -20,8 +20,8 @@ const { postAdmission,getAllAdmission,getAllAdmissionWithSearch
 ,getAllAdmissionWithSearchNpagination,deleteStudent,getAdmissionClassX,getAdmissionClassXSearch } = require('../Controllers/admission');
 const { getAllMyAdmission } = require('../Controllers/practice');
 const { postRegister } = require('../Controllers/register')
-const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail } = require('../Controllers/fees')
-const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff } = require('../Controllers/staff')
+const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail,getAllStudentFeeCollection } = require('../Controllers/fees')
+const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail } = require('../Controllers/staff')
 const { sendMail } = require('../Controllers/sendMail')
 
 
@@ -47,5 +47,7 @@ router.route("/school/getAllStaff").get(getAllStaffWithSearch);
 router.route("/school/updateStaff/:id").put(updateStaff);
 router.route('/school/deleteStaffDetail/:id').delete(deleteStaff);
 router.route('/school/sendMail').post(sendMail);
+router.route('/school/getAllStaffEmail').get(getAllStaffEmail);
+router.route('/school/getAllStudentFee/:class').get(getAllStudentFeeCollection);
 
 module.exports = router;

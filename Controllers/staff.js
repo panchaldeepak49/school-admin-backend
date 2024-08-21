@@ -122,7 +122,25 @@ const deleteStaff = async(req,res) =>{
   }
  }
 
- 
+ ////////////////////////////////////////////////////////////////////////////////
+ const getAllStaffEmail = async(req,res)=>{
+    try{
+    const allStaff = await collectionStaff.find();
+
+    const emailArray = allStaff.map(staff => staff.email)
+
+    return res.status(200).json({
+        success :true,
+        emailArray
+    })
+   }catch(error){
+    return res.status(500).json({
+        success : false,
+        message : "Failed to fetch staff emails",
+        error : error.message
+    })
+}
+}
  
 
-module.exports = { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff }
+module.exports = { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail }

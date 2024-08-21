@@ -70,6 +70,32 @@ const getAdmissionClassX = async(req,res)=>{
     })
 }
 
+// const getAdmissionClassXSearch = async(req,res)=>{
+//     try{
+//     let search = '';
+//     if(req.query.search){
+//         search = req.query.search;
+//     }
+//     const xAdmission = await collectionAdmission.find({
+//         $and : [
+//             {class : 'X'},
+//             {name : { $regex:'.*'+ search +'.*', $options:'i' } }
+//         ]
+//     });
+//     return res.status(200).json({
+//         success : true,
+//         message : " Class x students fetched successfully",
+//         xAdmission
+//     })
+// }catch(err){
+//     return res.status(500).json({
+//         success : false,
+//         message : err.message
+//     })
+// }
+// }
+
+
 const getAdmissionClassXSearch = async(req,res)=>{
     try{
     let search = '';
@@ -78,7 +104,7 @@ const getAdmissionClassXSearch = async(req,res)=>{
     }
     const xAdmission = await collectionAdmission.find({
         $and : [
-            {class : 'X'},
+            {class : req.query.class },
             {name : { $regex:'.*'+ search +'.*', $options:'i' } }
         ]
     });
