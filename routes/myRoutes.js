@@ -1,20 +1,8 @@
-const multer = require('multer');
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/Images');      // Uploads will be stored in the 'uploads' directory
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' + file.originalname);     // Rename the file to include the current timestamp
-    },
-  });
-
-  const upload = multer({ storage });
 
 const express = require('express');
 const router = express.Router();
 
-const {uploadFile} = require('../Controllers/fileUpload');
+const { uploadFile,upload } = require('../Controllers/fileUpload');
 const { postLogin } = require('../Controllers/login');
 const { postAdmission,getAllAdmission,getAllAdmissionWithSearch
 ,getAllAdmissionWithSearchNpagination,deleteStudent,getAdmissionClassX,getAdmissionClassXSearch } = require('../Controllers/admission');
@@ -22,7 +10,8 @@ const { getAllMyAdmission } = require('../Controllers/practice');
 const { postRegister } = require('../Controllers/register')
 const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail,getAllStudentFeeCollection } = require('../Controllers/fees')
 const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail } = require('../Controllers/staff')
-const { sendMail } = require('../Controllers/sendMail')
+const { sendMail } = require('../Controllers/sendMail');
+//const { uploadFileCloud } = require('../Controllers/fileUploadCloud');
 
 
 router.route("/school/register").post(postRegister);
@@ -36,6 +25,7 @@ router.route("/school/deleteStudent/:id").delete(deleteStudent);
 //router.route("/school/getAdmissionX").get(getAdmissionClassX);
 router.route("/school/getAdmissionX").get(getAdmissionClassXSearch);
 router.route('/upload').post(upload.single('file'),uploadFile);  //this api is used in frontend action 
+//router.route('/upload/cloud').post(uploadFileCloud);
 router.route("/school/postAllStudentFee").post(postStudentFee);
 router.route("/school/updateStudentFee/:id").put(updateStudentFee);
 router.route('/school/getAllStudentFee').get(getAllStudentFee);
