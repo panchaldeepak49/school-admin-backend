@@ -1,13 +1,14 @@
  //Applying multer with cloudinary 
+ require("dotenv").config();
  const multer = require('multer');
  const cloudinary = require('cloudinary').v2;
  const { Readable } = require('stream');
 
 //Configure Cloudinary with your credentials
 cloudinary.config({
-  cloud_name: 'dcorxvue7',
-  api_key: '897132727325465',
-  api_secret: '0SigtzCvaG0fHqilXD3glNLEyfA'
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
 
 // const storage = new MulterCloudinaryStorage({

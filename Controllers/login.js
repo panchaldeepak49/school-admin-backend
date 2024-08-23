@@ -20,7 +20,8 @@ const postLogin = async(req,res) =>{
             res.status(200).json({
                 success : true,
                 message : "Login successfull",
-                token : token
+                token : token,
+                details : existingUser
             })
         }else{
             res.status(400).json({
