@@ -9,7 +9,7 @@ const { postAdmission,getAllAdmission,getAllAdmissionWithSearch
 const { getAllMyAdmission } = require('../Controllers/practice');
 const { postRegister } = require('../Controllers/register')
 const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail,getAllStudentFeeCollection } = require('../Controllers/fees')
-const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail } = require('../Controllers/staff')
+const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail,getParticularStaff } = require('../Controllers/staff')
 const { sendMail } = require('../Controllers/sendMail');
 //const { uploadFileCloud } = require('../Controllers/fileUploadCloud');
 
@@ -32,8 +32,9 @@ router.route('/school/getAllStudentFee').get(getAllStudentFee);
 router.route('/school/deleteStudentFeeDetail/:id').delete(deleteStudentFeeDetail);
 
 router.route('/school/postStaff').post(postStaff);
-// router.route("/school/getAllStaff").get(getAllStaff);
+//router.route("/school/getAllStaff").get(getAllStaff);
 router.route("/school/getAllStaff").get(getAllStaffWithSearch);
+router.route('/school/getParticularStaff/:selectedStandard').get(getParticularStaff);
 router.route("/school/updateStaff/:id").put(updateStaff);
 router.route('/school/deleteStaffDetail/:id').delete(deleteStaff);
 router.route('/school/sendMail').post(sendMail);

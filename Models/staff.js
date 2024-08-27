@@ -43,7 +43,11 @@ const productSchema = new mongoose.Schema({
     },
     imageUrl : {
         type : String,
-    }
+    },
+    class : [
+        {}
+    ],
+
 
 })
 

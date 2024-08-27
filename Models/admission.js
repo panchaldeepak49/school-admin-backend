@@ -25,14 +25,14 @@ const productSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    section : {
-        type : String,
-        required : true,
-    },
-    classTeacher : {
-        type : String,
-        required : true,
-    },
+    // section : {
+    //     type : String,
+    //     required : true,
+    // },
+    // classTeacher : {
+    //     type : String,
+    //     required : true,
+    // },
     gender : {
         type : String,
         required : true,

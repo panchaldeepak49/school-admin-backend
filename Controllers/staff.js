@@ -4,6 +4,9 @@ const collectionStaff = require('../Models/staff');
 const postStaff = async(req,res)=>{
     try{
     const existingStaff = await collectionStaff.findOne({contact : req.body.contact});
+    const classAlreadyAssigned = await collectionStaff.findOne({
+      classAssigned: { $ne: "", $eq: req.body.classAssigned }    // Exclude empty classAssigned values
+     });
     //console.log(req.body)
 
     if(existingStaff){
@@ -11,6 +14,11 @@ const postStaff = async(req,res)=>{
             success : false,
             message : "Staff already exist",
         })
+        }else if(classAlreadyAssigned){
+            return res.status(404).json({
+                success : false,
+                message : "Class already assigned",
+            })
     }else{
         const newStaff = await collectionStaff.create(req.body)
         //console.log(req.body)
@@ -66,9 +74,18 @@ const updateStaff = async(req,res)=>{
     
     try{
     let availableUser = await collectionStaff.findById(req.params.id);
+    const classAlreadyAssigned = await collectionStaff.findOne({
+        classAssigned: { $ne: "", $eq: req.body.classAssigned }    // Exclude empty classAssigned values
+    });
 
-    if(availableUser){
-     availableUser = await collectionStaff.findByIdAndUpdate(req.params.id,req.body,
+     if(availableUser){
+        if(classAlreadyAssigned){
+            return res.status(404).json({
+                success : false,
+                message : "Class already assigned",
+            })
+        }
+      availableUser = await collectionStaff.findByIdAndUpdate(req.params.id,req.body,
         {new:true,
         useFindAndModify: false,
         runValidators: true
@@ -91,9 +108,7 @@ const updateStaff = async(req,res)=>{
         success : false,
         message : "Internal server error"
     })
-
-}
-}
+  }}
 //////////////////////////////////////////////////////////////////delete Staff
 
 const deleteStaff = async(req,res) =>{
@@ -141,6 +156,19 @@ const deleteStaff = async(req,res) =>{
     })
 }
 }
+////////////////////////////////////////////////////////////////////////////////////
+
+const getParticularStaff = async(req,res)=>{
+    //console.log(req.params.selectedStandard)
+    const particularStaff = await collectionStaff.findOne({
+        classAssigned: { $ne: "", $eq: req.params.selectedStandard }    // Exclude empty classAssigned values
+    });
+    return res.status(200).json({
+        success :true,
+        message : "Staff details fetched",
+        particularStaff
+    })
+}
  
 
-module.exports = { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail }
+module.exports = { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail,getParticularStaff }
