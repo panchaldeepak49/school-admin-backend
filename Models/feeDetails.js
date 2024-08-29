@@ -16,10 +16,10 @@ const productSchema = new mongoose.Schema({
     imageUrl : {
         type : String,
     },
-    baseFee : {
-        type : Number,
-        // required : true,
-    },
+    // baseFee : {
+    //     type : Number,
+    //     // required : true,
+    // },
     april : {
         type : Number,
         // required : true,

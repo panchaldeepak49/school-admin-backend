@@ -11,6 +11,7 @@ const { postRegister } = require('../Controllers/register')
 const { postStudentFee,updateStudentFee,getAllStudentFee,deleteStudentFeeDetail,getAllStudentFeeCollection } = require('../Controllers/fees')
 const { postStaff,getAllStaff,getAllStaffWithSearch,updateStaff,deleteStaff,getAllStaffEmail,getParticularStaff } = require('../Controllers/staff')
 const { sendMail } = require('../Controllers/sendMail');
+const { postClass,getAllClass,getClassByClass,updateClass } = require('../Controllers/class');
 //const { uploadFileCloud } = require('../Controllers/fileUploadCloud');
 
 
@@ -40,5 +41,10 @@ router.route('/school/deleteStaffDetail/:id').delete(deleteStaff);
 router.route('/school/sendMail').post(sendMail);
 router.route('/school/getAllStaffEmail').get(getAllStaffEmail);
 router.route('/school/getAllStudentFee/:class').get(getAllStudentFeeCollection);
+
+router.route('/school/postClass').post(postClass);
+router.route('/school/getClass').get(getAllClass);
+router.route('/school/getClass/:class').get(getClassByClass);
+router.route('/school/updateClass/:id').put(updateClass);
 
 module.exports = router;
