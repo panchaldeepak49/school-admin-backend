@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+require("dotenv").config();
 
-const uri = 'mongodb+srv://panchaldeepak49:Deepak%4012345@cluster1.ebo66nu.mongodb.net/';
-                        //database name provided(cluster1)---Mongodb atlas cloud service used here
+const uri = process.env.DB_URL ;
+
                         
 
 const connectDB = ()=>{

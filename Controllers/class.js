@@ -72,5 +72,29 @@ const updateClass = async(req,res)=>{
     }
 
 }
+///////////////////////////////////////////////////////////////////////
+ const deleteClass = async(req,res)=>{
+    try{
+    let availableClass = await collectionClass.findById(req.params.id);
+    if(availableClass){
+        await collectionClass.findByIdAndDelete(req.params.id)
+        return res.status(200).json({
+            success : true,
+            message : 'Class deleted successfully',
 
-module.exports = { postClass,getAllClass,getClassByClass,updateClass }
+        })
+    }else{
+        return res.status(404).json({
+            success : false,
+            message : 'class not found'
+        })
+    }
+    }catch(err){
+        return res.status(500).json({
+            success : false,
+            message : 'Internal server error'
+        })
+
+    }}
+
+module.exports = { postClass,getAllClass,getClassByClass,updateClass,deleteClass }
