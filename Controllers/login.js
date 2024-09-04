@@ -17,20 +17,20 @@ const postLogin = async(req,res) =>{
             
             if(isMatch){
             const token = jwt.sign({ email: email }, secretKey);
-            res.status(200).json({
+            return res.status(200).json({
                 success : true,
                 message : "Login successfull",
                 token : token,
                 details : existingUser
             })
         }else{
-            res.status(400).json({
+            return res.status(400).json({
                 success : false,
                 message : "incorrect password"
             })
         }
     }else{
-        res.status(404).json({
+        return res.status(404).json({
             success : false,
             message : " User not registered"
         })

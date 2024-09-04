@@ -71,11 +71,17 @@ const getAllStaffWithSearch = async(req,res)=>{
 }
 /////////////////////////////////////////////////////////////////////////////update API
 const updateStaff = async(req,res)=>{
-    
     try{
     let availableUser = await collectionStaff.findById(req.params.id);
+    // const classAlreadyAssigned = await collectionStaff.findOne({
+    //     classAssigned: { $ne: "", $eq: req.body.classAssigned, $ne: availableUser.classAssigned }    // Exclude empty classAssigned values
+    // });
     const classAlreadyAssigned = await collectionStaff.findOne({
-        classAssigned: { $ne: "", $eq: req.body.classAssigned }    // Exclude empty classAssigned values
+        $and: [
+            { classAssigned: { $ne: "" } },  // Exclude empty classAssigned values
+            { classAssigned: { $eq: req.body.classAssigned } },  // Match the classAssigned value from the request
+            { classAssigned: { $ne: availableUser.classAssigned } }  // Exclude the current user's classAssigned
+        ]
     });
 
      if(availableUser){
@@ -85,14 +91,14 @@ const updateStaff = async(req,res)=>{
                 message : "Class already assigned",
             })
         }
-      availableUser = await collectionStaff.findByIdAndUpdate(req.params.id,req.body,
+      updatedUser = await collectionStaff.findByIdAndUpdate(req.params.id,req.body,
         {new:true,
         useFindAndModify: false,
         runValidators: true
         })
       return res.status(200).json({
         success :true,
-        availableUser,
+        updatedUser,
         message : 'Staff details updated successfully'
     })
 
