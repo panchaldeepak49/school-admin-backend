@@ -2,7 +2,8 @@ const collectionLogin = require('../Models/login');
 const collectionRegister = require('../Models/register');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secretKey = 'secretkey';
+// const secretKey = 'secretkey';
+const secretKey = process.env.JWT_SECRET
 
 const postLogin = async(req,res) =>{
     const{ email,password } = req.body;

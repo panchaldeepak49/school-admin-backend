@@ -101,18 +101,18 @@ const getAllStudentFee = async(req,res)=>{
             {name : { $regex:'.*'+ search +'.*', $options:'i' } }
         ]
     })
-    .limit(limit * 1)
-    .skip((page - 1)*limit)
-    .exec();
+    // .limit(limit * 1)
+    // .skip((page - 1)*limit)
+    // .exec();
     
-    const count = await collectionFee.find().countDocuments();
+    // const count = await collectionFee.find().countDocuments();
     return res.status(200).json({
         success : true,
         allStudentFee,
-        limit : limit,
-        page : page,
-        count : count,
-        totalPages : Math.ceil(count/limit),
+        // limit : limit,
+        // page : page,
+        // count : count,
+        // totalPages : Math.ceil(count/limit),
     })
    }catch(err){
     return res.status(500).json({

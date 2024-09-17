@@ -10,6 +10,7 @@ connectDB();
 
 const my_routes = require('./routes/myRoutes');
 
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({
     extended : false

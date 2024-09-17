@@ -1,6 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
+const jwtAuthMiddleware = require('../jwt');
 
 const { uploadFile,upload } = require('../Controllers/fileUpload');
 const { postLogin } = require('../Controllers/login');
@@ -43,8 +44,8 @@ router.route('/school/getAllStaffEmail').get(getAllStaffEmail);
 router.route('/school/getAllStudentFee/:class').get(getAllStudentFeeCollection);
 
 router.route('/school/postClass').post(postClass);
-router.route('/school/getClass').get(getAllClass);
-router.route('/school/getClass/:class').get(getClassByClass);
+router.route('/school/getClass').get(jwtAuthMiddleware,getAllClass);
+router.route('/school/getClass/:class').get(jwtAuthMiddleware,getClassByClass);
 router.route('/school/updateClass/:id').put(updateClass);
 router.route('/school/deleteClass/:id').delete(deleteClass);
 
